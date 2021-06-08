@@ -18,7 +18,9 @@
     "react-transition-group": "^4.0.1",
     "uuid": "^3.3.2"
   },
-  "node": "14.x",
+  "engines": {
+    "npm": "6.x"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
