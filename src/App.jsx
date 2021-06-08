@@ -48,6 +48,25 @@ import {
 
 import { cloneDeep } from 'lodash';
 
+import {
+  createSmartappDebugger,
+  createAssistant,
+  AssistantAppState,
+} from "@sberdevices/assistant-client";
+
+
+const initializeAssistant = (getState/*: any*/) => {
+  if (process.env.NODE_ENV === "development") {
+    return createSmartappDebugger({
+      token: process.env.REACT_APP_TOKEN ?? "",
+      initPhrase: `Запусти ${process.env.REACT_APP_SMARTAPP}`,
+      getState,
+    });
+  }
+  return createAssistant({ getState });
+};
+
+
 class App extends Component {
   state = {
     loading: true,
