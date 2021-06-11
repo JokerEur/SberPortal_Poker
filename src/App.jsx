@@ -51,7 +51,6 @@ import { cloneDeep } from 'lodash';
 import {
   createSmartappDebugger,
   createAssistant,
-  AssistantAppState,
 } from "@sberdevices/assistant-client";
 
 
@@ -67,7 +66,7 @@ const initializeAssistant = (getState/*: any*/) => {
 };
 
 
-class App extends Component {
+export class App extends React.Component {
   state = {
     loading: true,
     winnerFound: null,
@@ -89,6 +88,7 @@ class App extends Component {
     playerHierarchy: [],
     showDownMessages: [],
     playActionMessages: [],
+    notes: [], 
     playerAnimationSwitchboard: {
       0: {isAnimating: false, content: null},
       1: {isAnimating: false, content: null},
@@ -99,6 +99,7 @@ class App extends Component {
     }
   }
 
+   
   cardAnimationDelay = 0;
   
   loadTable = () => {
@@ -170,6 +171,22 @@ imageLoaderRequest.send();
       phase: 'initialDeal',
     }))
     this.runGameLoop();
+  }
+
+  constructor(props) {
+    super(props);
+    console.log('constructor');
+  
+    this.assistant = initializeAssistant(() => this.getStateForAssistant() );
+    this.assistant.on("data", (event/*: any*/) => {
+      console.log(`assistant.on(data)`, event);
+      const { action } = event
+      this.dispatchAssistantAction(action);
+    });
+    this.assistant.on("start", (event) => {
+      console.log(`assistant.on(start)`, event);
+    });
+  
   }
 
   handleBetInputChange = (val, min, max) => {
@@ -448,6 +465,43 @@ imageLoaderRequest.send();
       </div>
     );
   }
+  getStateForAssistant () {
+    console.log('getStateForAssistant: this.state:', this.state)
+    const state = {
+      item_selector: {
+        items: this.state.notes.map(
+          ({ id, title }, index) => ({
+            number: index + 1,
+            id,
+            title,
+          })
+        ),
+      },
+    };
+    console.log('getStateForAssistant: state:', state)
+    return state;
+  }
+
+  dispatchAssistantAction (action) {
+    console.log('dispatchAssistantAction', action);
+    if (action) {
+      switch (action.type) {
+        case 'скинь':
+          return this.handleFold();
+
+        case 'done_note':
+          return this.done_note(action);
+
+        case 'delete_note':
+          return this.delete_note(action);
+
+        default:
+          throw new Error();
+      }
+    }
+  }
+
+
 }
 
 export default App;
