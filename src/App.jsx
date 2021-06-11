@@ -487,8 +487,19 @@ imageLoaderRequest.send();
     if (action) {
       switch (action.type) {
         case 'add_note':
-          handleFold();
-
+          handleFold = () => {
+            const {playerAnimationSwitchboard, ...appState} = this.state
+            const newState = handleFold(cloneDeep(appState));
+              this.setState(newState, () => {
+                if((this.state.players[this.state.activePlayerIndex].robot) && (this.state.phase !== 'showdown')) {
+                  setTimeout(() => {
+                  
+                    this.handleAI()
+                  }, 1200)
+                }
+              })
+          }
+        break;
         case 'done_note':
           return this.done_note(action);
 
