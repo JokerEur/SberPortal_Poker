@@ -487,7 +487,7 @@ imageLoaderRequest.send();
     if (action) {
       switch (action.type) {
         case 'add_note':
-          return this.handleFold(action);
+          handleFold();
 
         case 'done_note':
           return this.done_note(action);
