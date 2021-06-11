@@ -486,7 +486,7 @@ imageLoaderRequest.send();
     console.log('dispatchAssistantAction', action);
     if (action) {
       switch (action.type) {
-        case 'скинь':
+        case 'add_note':
           return this.handleFold();
 
         case 'done_note':
