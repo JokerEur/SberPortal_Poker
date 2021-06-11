@@ -186,9 +186,9 @@ imageLoaderRequest.send();
     this.assistant.on("start", (event) => {
       console.log(`assistant.on(start)`, event);
     });
-  
+    
   }
-
+  
   handleBetInputChange = (val, min, max) => {
     if (val === '') val = min
     if (val > max) val = max
@@ -487,7 +487,7 @@ imageLoaderRequest.send();
     if (action) {
       switch (action.type) {
         case 'add_note':
-          return this.handleFold();
+          return handleFold();
 
         case 'done_note':
           return this.done_note(action);
