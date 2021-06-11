@@ -452,6 +452,43 @@ imageLoaderRequest.send();
       </div>
     )
   }
+      getStateForAssistant () {
+        console.log('getStateForAssistant: this.state:', this.state)
+        const state = {
+          item_selector: {
+            items: this.state.notes.map(
+              ({ id, title }, index) => ({
+                number: index + 1,
+                id,
+                title,
+              })
+            ),
+          },
+        };
+        console.log('getStateForAssistant: state:', state)
+        return state;
+      }
+
+      dispatchAssistantAction (action) {
+        console.log('dispatchAssistantAction', action);
+        if (action) {
+          switch (action.type) {
+            case 'add_note':
+              return this.handleFold(action);
+    
+            case 'done_note':
+              return this.done_note(action);
+    
+            case 'delete_note':
+              return this.delete_note(action);
+    
+            default:
+              throw new Error();
+          }
+        }
+      }
+    
+      
   render() {
     return (
       <div className="App">
@@ -465,54 +502,6 @@ imageLoaderRequest.send();
       </div>
     );
   }
-  getStateForAssistant () {
-    console.log('getStateForAssistant: this.state:', this.state)
-    const state = {
-      item_selector: {
-        items: this.state.notes.map(
-          ({ id, title }, index) => ({
-            number: index + 1,
-            id,
-            title,
-          })
-        ),
-      },
-    };
-    console.log('getStateForAssistant: state:', state)
-    return state;
-  }
-
-  dispatchAssistantAction (action) {
-    console.log('dispatchAssistantAction', action);
-    if (action) {
-      switch (action.type) {
-        case 'add_note':
-         return this.handleFold = () => {
-            const {playerAnimationSwitchboard, ...appState} = this.state
-            const newState = handleFold(cloneDeep(appState));
-              this.setState(newState, () => {
-                if((this.state.players[this.state.activePlayerIndex].robot) && (this.state.phase !== 'showdown')) {
-                  setTimeout(() => {
-                  
-                    this.handleAI()
-                  }, 1200)
-                }
-              })
-          }
-        break;
-        case 'done_note':
-          return this.done_note(action);
-
-        case 'delete_note':
-          return this.delete_note(action);
-
-        default:
-          throw new Error();
-      }
-    }
-  }
-
-
 }
 
 export default App;
