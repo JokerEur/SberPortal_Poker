@@ -487,7 +487,7 @@ imageLoaderRequest.send();
     if (action) {
       switch (action.type) {
         case 'add_note':
-          handleFold = () => {
+         return this.handleFold = () => {
             const {playerAnimationSwitchboard, ...appState} = this.state
             const newState = handleFold(cloneDeep(appState));
               this.setState(newState, () => {
