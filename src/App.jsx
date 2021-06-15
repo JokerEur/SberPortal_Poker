@@ -177,6 +177,10 @@ export class App extends React.Component {
     super(props);
     console.log('constructor');
 
+    this.state = {
+      notes: [],
+    }
+
     this.assistant = initializeAssistant(() => this.getStateForAssistant());
     this.assistant.on("data", (event/*: any*/) => {
       console.log(`assistant.on(data)`, event);
