@@ -67,37 +67,37 @@ const initializeAssistant = (getState/*: any*/) => {
 
 
 export class App extends React.Component {
-  state = {
-    loading: true,
-    winnerFound: null,
-    players: null,
-    numPlayersActive: null,
-    numPlayersFolded: null,
-    numPlayersAllIn: null,
-    activePlayerIndex: null,
-    dealerIndex: null,
-    blindIndex: null,
-    deck: null,
-    communityCards: [],
-    pot: null,
-    highBet: null,
-    betInputValue: null,
-    sidePots: [],
-    minBet: 20,
-    phase: 'loading',
-    playerHierarchy: [],
-    showDownMessages: [],
-    playActionMessages: [],
-    notes: [],
-    playerAnimationSwitchboard: {
-      0: { isAnimating: false, content: null },
-      1: { isAnimating: false, content: null },
-      2: { isAnimating: false, content: null },
-      3: { isAnimating: false, content: null },
-      4: { isAnimating: false, content: null },
-      5: { isAnimating: false, content: null }
-    }
-  }
+  // state = {
+  //   loading: true,
+  //   winnerFound: null,
+  //   players: null,
+  //   numPlayersActive: null,
+  //   numPlayersFolded: null,
+  //   numPlayersAllIn: null,
+  //   activePlayerIndex: null,
+  //   dealerIndex: null,
+  //   blindIndex: null,
+  //   deck: null,
+  //   communityCards: [],
+  //   pot: null,
+  //   highBet: null,
+  //   betInputValue: null,
+  //   sidePots: [],
+  //   minBet: 20,
+  //   phase: 'loading',
+  //   playerHierarchy: [],
+  //   showDownMessages: [],
+  //   playActionMessages: [],
+  //   notes: [],
+  //   playerAnimationSwitchboard: {
+  //     0: { isAnimating: false, content: null },
+  //     1: { isAnimating: false, content: null },
+  //     2: { isAnimating: false, content: null },
+  //     3: { isAnimating: false, content: null },
+  //     4: { isAnimating: false, content: null },
+  //     5: { isAnimating: false, content: null }
+  //   }
+  // }
 
 
   cardAnimationDelay = 0;
@@ -177,8 +177,36 @@ export class App extends React.Component {
     super(props);
     console.log('constructor');
 
-    var state = {
+    this.state = {
+      loading: true,
+      winnerFound: null,
+      players: null,
+      numPlayersActive: null,
+      numPlayersFolded: null,
+      numPlayersAllIn: null,
+      activePlayerIndex: null,
+      dealerIndex: null,
+      blindIndex: null,
+      deck: null,
+      communityCards: [],
+      pot: null,
+      highBet: null,
+      betInputValue: null,
+      sidePots: [],
+      minBet: 20,
+      phase: 'loading',
+      playerHierarchy: [],
+      showDownMessages: [],
+      playActionMessages: [],
       notes: [],
+      playerAnimationSwitchboard: {
+        0: { isAnimating: false, content: null },
+        1: { isAnimating: false, content: null },
+        2: { isAnimating: false, content: null },
+        3: { isAnimating: false, content: null },
+        4: { isAnimating: false, content: null },
+        5: { isAnimating: false, content: null }
+      }
     }
 
     this.assistant = initializeAssistant(() => this.getStateForAssistant());
@@ -478,7 +506,7 @@ export class App extends React.Component {
     if (action) {
       switch (action.type) {
         case 'add_note':
-           this.handleFold();
+          this.handleFold();
 
         case 'done_note':
           return this.done_note(action);
