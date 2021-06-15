@@ -15,24 +15,24 @@ import Player from "./components/players/Player";
 import ShowdownPlayer from "./components/players/ShowdownPlayer";
 import Card from "./components/cards/Card";
 
-import { 
-  generateDeckOfCards, 
-  shuffle, 
+import {
+  generateDeckOfCards,
+  shuffle,
   dealPrivateCards,
 } from './utils/cards.js';
 
-import { 
-  generateTable, 
+import {
+  generateTable,
   beginNextRound,
   checkWin
 } from './utils/players.js';
 
-import { 
-  determineBlindIndices, 
-  anteUpBlinds, 
+import {
+  determineBlindIndices,
+  anteUpBlinds,
   determineMinBet,
   handleBet,
-  handleFold, 
+  handleFold,
 } from './utils/bet.js';
 
 import {
@@ -88,20 +88,20 @@ export class App extends React.Component {
     playerHierarchy: [],
     showDownMessages: [],
     playActionMessages: [],
-    notes: [], 
+    notes: [],
     playerAnimationSwitchboard: {
-      0: {isAnimating: false, content: null},
-      1: {isAnimating: false, content: null},
-      2: {isAnimating: false, content: null},
-      3: {isAnimating: false, content: null},
-      4: {isAnimating: false, content: null},
-      5: {isAnimating: false, content: null}
+      0: { isAnimating: false, content: null },
+      1: { isAnimating: false, content: null },
+      2: { isAnimating: false, content: null },
+      3: { isAnimating: false, content: null },
+      4: { isAnimating: false, content: null },
+      5: { isAnimating: false, content: null }
     }
   }
 
-   
+
   cardAnimationDelay = 0;
-  
+
   loadTable = () => {
 
   }
@@ -111,46 +111,46 @@ export class App extends React.Component {
     const dealerIndex = Math.floor(Math.random() * Math.floor(players.length));
     const blindIndicies = determineBlindIndices(dealerIndex, players.length);
     const playersBoughtIn = anteUpBlinds(players, blindIndicies, this.state.minBet);
-    
+
     const imageLoaderRequest = new XMLHttpRequest();
 
-imageLoaderRequest.addEventListener("load", e => {
-    console.log(`${e.type}`);
-    console.log(e);
-    console.log("Image Loaded!");
-    this.setState({
-      loading: false,
-    })
-});
+    imageLoaderRequest.addEventListener("load", e => {
+      console.log(`${e.type}`);
+      console.log(e);
+      console.log("Image Loaded!");
+      this.setState({
+        loading: false,
+      })
+    });
 
-imageLoaderRequest.addEventListener("error", e => {
-    console.log(`${e.type}`);
-    console.log(e);
-});
+    imageLoaderRequest.addEventListener("error", e => {
+      console.log(`${e.type}`);
+      console.log(e);
+    });
 
 
-imageLoaderRequest.addEventListener("loadstart", e => {
-    console.log(`${e.type}`);
-    console.log(e);
-});
+    imageLoaderRequest.addEventListener("loadstart", e => {
+      console.log(`${e.type}`);
+      console.log(e);
+    });
 
-imageLoaderRequest.addEventListener("loadend", e => {
-    console.log(`${e.type}`);
-    console.log(e);
-});
+    imageLoaderRequest.addEventListener("loadend", e => {
+      console.log(`${e.type}`);
+      console.log(e);
+    });
 
-imageLoaderRequest.addEventListener("abort", e => {
-    console.log(`${e.type}`);
-    console.log(e);
-});
+    imageLoaderRequest.addEventListener("abort", e => {
+      console.log(`${e.type}`);
+      console.log(e);
+    });
 
-imageLoaderRequest.addEventListener("progress", e => {
-    console.log(`${e.type}`);
-    console.log(e);
-});
+    imageLoaderRequest.addEventListener("progress", e => {
+      console.log(`${e.type}`);
+      console.log(e);
+    });
 
-imageLoaderRequest.open("GET", "./assets/table-nobg-svg-01.svg");
-imageLoaderRequest.send();
+    imageLoaderRequest.open("GET", "./assets/table-nobg-svg-01.svg");
+    imageLoaderRequest.send();
 
     this.setState(prevState => ({
       // loading: false,
@@ -176,8 +176,8 @@ imageLoaderRequest.send();
   constructor(props) {
     super(props);
     console.log('constructor');
-  
-    this.assistant = initializeAssistant(() => this.getStateForAssistant() );
+
+    this.assistant = initializeAssistant(() => this.getStateForAssistant());
     this.assistant.on("data", (event/*: any*/) => {
       console.log(`assistant.on(data)`, event);
       const { action } = event
@@ -186,17 +186,17 @@ imageLoaderRequest.send();
     this.assistant.on("start", (event) => {
       console.log(`assistant.on(start)`, event);
     });
-    
+
   }
-  
+
   handleBetInputChange = (val, min, max) => {
     if (val === '') val = min
     if (val > max) val = max
-      this.setState({
-        betInputValue: parseInt(val, 10),
-      });
+    this.setState({
+      betInputValue: parseInt(val, 10),
+    });
   }
-  
+
   changeSliderInput = (val) => {
     this.setState({
       betInputValue: val[0]
@@ -205,70 +205,70 @@ imageLoaderRequest.send();
 
   pushAnimationState = (index, content) => {
     const newAnimationSwitchboard = Object.assign(
-      {}, 
+      {},
       this.state.playerAnimationSwitchboard,
-      {[index]: {isAnimating: true, content}}     
+      { [index]: { isAnimating: true, content } }
     )
-    this.setState({playerAnimationSwitchboard: newAnimationSwitchboard});
+    this.setState({ playerAnimationSwitchboard: newAnimationSwitchboard });
   }
 
   popAnimationState = (index) => {
     const persistContent = this.state.playerAnimationSwitchboard[index].content;
     const newAnimationSwitchboard = Object.assign(
-      {}, 
+      {},
       this.state.playerAnimationSwitchboard,
-      {[index]: {isAnimating: false, content: persistContent}}     
+      { [index]: { isAnimating: false, content: persistContent } }
     )
-    this.setState({playerAnimationSwitchboard: newAnimationSwitchboard});
+    this.setState({ playerAnimationSwitchboard: newAnimationSwitchboard });
   }
 
   handleBetInputSubmit = (bet, min, max) => {
-    const {playerAnimationSwitchboard, ...appState} = this.state;
+    const { playerAnimationSwitchboard, ...appState } = this.state;
     const { activePlayerIndex } = appState;
     this.pushAnimationState(activePlayerIndex, `${renderActionButtonText(this.state.highBet, this.state.betInputValue, this.state.players[this.state.activePlayerIndex])} ${(bet > this.state.players[this.state.activePlayerIndex].bet) ? (bet) : ""}`);;
     const newState = handleBet(cloneDeep(appState), parseInt(bet, 10), parseInt(min, 10), parseInt(max, 10));
-      this.setState(newState, () => {
-        if((this.state.players[this.state.activePlayerIndex].robot) && (this.state.phase !== 'showdown')) {
-          setTimeout(() => {
-          
-            this.handleAI()
-          }, 1200)
-        }
-      });
+    this.setState(newState, () => {
+      if ((this.state.players[this.state.activePlayerIndex].robot) && (this.state.phase !== 'showdown')) {
+        setTimeout(() => {
+
+          this.handleAI()
+        }, 1200)
+      }
+    });
   }
 
   handleFold = () => {
-    const {playerAnimationSwitchboard, ...appState} = this.state
+    const { playerAnimationSwitchboard, ...appState } = this.state
     const newState = handleFold(cloneDeep(appState));
-      this.setState(newState, () => {
-        if((this.state.players[this.state.activePlayerIndex].robot) && (this.state.phase !== 'showdown')) {
-          setTimeout(() => {
-          
-            this.handleAI()
-          }, 1200)
-        }
-      })
+    this.setState(newState, () => {
+      if ((this.state.players[this.state.activePlayerIndex].robot) && (this.state.phase !== 'showdown')) {
+        setTimeout(() => {
+
+          this.handleAI()
+        }, 1200)
+      }
+    })
   }
 
   handleAI = () => {
-    const {playerAnimationSwitchboard, ...appState} = this.state;
+    const { playerAnimationSwitchboard, ...appState } = this.state;
     const newState = handleAIUtil(cloneDeep(appState), this.pushAnimationState)
 
-      this.setState({
-            ...newState,
-            betInputValue: newState.minBet
-      }, () => {
-        if((this.state.players[this.state.activePlayerIndex].robot) && (this.state.phase !== 'showdown')) {
-          setTimeout(() => {
-          
-            this.handleAI()
-          }, 1200)
-        }
-      })
+    this.setState({
+      ...newState,
+      betInputValue: newState.minBet
+    }, () => {
+      if ((this.state.players[this.state.activePlayerIndex].robot) && (this.state.phase !== 'showdown')) {
+        setTimeout(() => {
+
+          this.handleAI()
+        }, 1200)
+      }
+    })
   }
 
   renderBoard = () => {
-    const { 
+    const {
       players,
       activePlayerIndex,
       dealerIndex,
@@ -278,23 +278,23 @@ imageLoaderRequest.send();
     } = this.state;
     // Reverse Players Array for the sake of taking turns counter-clockwise.
     const reversedPlayers = players.reduce((result, player, index) => {
-      
+
       const isActive = (index === activePlayerIndex);
       const hasDealerChip = (index === dealerIndex);
 
 
       result.unshift(
-          <Player
-            key={index}
-            arrayIndex={index}
-            isActive={isActive}
-            hasDealerChip={hasDealerChip}
-            player={player}
-            clearCards={clearCards}
-            phase={phase}
-            playerAnimationSwitchboard={playerAnimationSwitchboard}      
-            endTransition={this.popAnimationState}
-          />
+        <Player
+          key={index}
+          arrayIndex={index}
+          isActive={isActive}
+          hasDealerChip={hasDealerChip}
+          player={player}
+          clearCards={clearCards}
+          phase={phase}
+          playerAnimationSwitchboard={playerAnimationSwitchboard}
+          endTransition={this.popAnimationState}
+        />
       )
       return result
     }, []);
@@ -303,12 +303,12 @@ imageLoaderRequest.send();
 
   renderCommunityCards = (purgeAnimation) => {
     return this.state.communityCards.map((card, index) => {
-      let cardData = {...card};
+      let cardData = { ...card };
       if (purgeAnimation) {
         cardData.animationDelay = 0;
       }
-      return(
-        <Card key={index} cardData={cardData}/>
+      return (
+        <Card key={index} cardData={cardData} />
       );
     });
   }
@@ -316,7 +316,7 @@ imageLoaderRequest.send();
   runGameLoop = () => {
     const newState = dealPrivateCards(cloneDeep(this.state))
     this.setState(newState, () => {
-      if((this.state.players[this.state.activePlayerIndex].robot) && (this.state.phase !== 'showdown')) {
+      if ((this.state.players[this.state.activePlayerIndex].robot) && (this.state.phase !== 'showdown')) {
         setTimeout(() => {
           this.handleAI()
         }, 1200)
@@ -346,12 +346,12 @@ imageLoaderRequest.send();
           <h5 className="showdown-player--besthand--heading">
             Best Hand
           </h5>
-          <div className='showdown-player--besthand--cards' style={{alignItems: 'center'}}>
+          <div className='showdown-player--besthand--cards' style={{ alignItems: 'center' }}>
             {
               bestHand.map((card, index) => {
                 // Reset Animation Delay
-                const cardData = {...card, animationDelay: 0}
-                return <Card key={index} cardData={cardData}/>
+                const cardData = { ...card, animationDelay: 0 }
+                return <Card key={index} cardData={cardData} />
               })
             }
           </div>
@@ -374,18 +374,18 @@ imageLoaderRequest.send();
   }
 
   handleNextRound = () => {
-    this.setState({clearCards: true})
+    this.setState({ clearCards: true })
     const newState = beginNextRound(cloneDeep(this.state))
     // Check win condition
-    if(checkWin(newState.players)) {
+    if (checkWin(newState.players)) {
       this.setState({ winnerFound: true })
       return;
     }
-      this.setState(newState, () => {
-        if((this.state.players[this.state.activePlayerIndex].robot) && (this.state.phase !== 'showdown')) {
-          setTimeout(() => this.handleAI(), 1200)
-        }
-      })
+    this.setState(newState, () => {
+      if ((this.state.players[this.state.activePlayerIndex].robot) && (this.state.phase !== 'showdown')) {
+        setTimeout(() => this.handleAI(), 1200)
+      }
+    })
   }
 
   renderActionButtons = () => {
@@ -401,26 +401,26 @@ imageLoaderRequest.send();
           Fold
         </button>
       </React.Fragment>
-      )
+    )
   }
 
   renderShowdown = () => {
-    return(
+    return (
       <div className='showdown-container--wrapper'>
         <h5 className="showdown-container--title">
           Round Complete!
         </h5>
         <div className="showdown-container--messages">
-          { renderShowdownMessages(this.state.showDownMessages)}
+          {renderShowdownMessages(this.state.showDownMessages)}
         </div>
         <h5 className="showdown-container--community-card-label">
           Community Cards
         </h5>
         <div className='showdown-container--community-cards'>
-          { this.renderCommunityCards(true) }
+          {this.renderCommunityCards(true)}
         </div>
         <button className="showdown--nextRound--button" onClick={() => this.handleNextRound()}> Next Round </button>
-          { this.renderBestHands() }
+        { this.renderBestHands()}
       </div>
     )
   }
@@ -431,72 +431,72 @@ imageLoaderRequest.send();
       <div className='poker-app--background'>
         <div className="poker-table--container">
           <img className="poker-table--table-image" src={"./assets/table-nobg-svg-01.svg"} alt="Poker Table" />
-          { this.renderBoard() }
+          {this.renderBoard()}
           <div className='community-card-container' >
-            { this.renderCommunityCards() }
+            {this.renderCommunityCards()}
           </div>
           <div className='pot-container'>
-            <img style={{height: 55, width: 55}} src={'./assets/pot.svg'} alt="Pot Value"/>
+            <img style={{ height: 55, width: 55 }} src={'./assets/pot.svg'} alt="Pot Value" />
             <h4> {`${this.state.pot}`} </h4>
           </div>
         </div>
-        { (this.state.phase === 'showdown') && this.renderShowdown() } 
+        { (this.state.phase === 'showdown') && this.renderShowdown()}
         <div className='game-action-bar' >
           <div className='action-buttons'>
-              { this.renderActionButtons() }
+            {this.renderActionButtons()}
           </div>
           <div className='slider-boi'>
-            { (!this.state.loading)  && renderActionMenu(highBet, players, activePlayerIndex, phase, this.handleBetInputChange)}
+            {(!this.state.loading) && renderActionMenu(highBet, players, activePlayerIndex, phase, this.handleBetInputChange)}
           </div>
         </div>
       </div>
     )
   }
-      getStateForAssistant () {
-        console.log('getStateForAssistant: this.state:', this.state)
-        const state = {
-          item_selector: {
-            items: this.state.notes.map(
-              ({ id, title }, index) => ({
-                number: index + 1,
-                id,
-                title,
-              })
-            ),
-          },
-        };
-        console.log('getStateForAssistant: state:', state)
-        return state;
-      }
+  getStateForAssistant() {
+    console.log('getStateForAssistant: this.state:', this.state)
+    const state = {
+      item_selector: {
+        items: this.state.notes.map(
+          ({ id, title }, index) => ({
+            number: index + 1,
+            id,
+            title,
+          })
+        ),
+      },
+    };
+    console.log('getStateForAssistant: state:', state)
+    return state;
+  }
 
-      dispatchAssistantAction (action) {
-        console.log('dispatchAssistantAction', action);
-        if (action) {
-          switch (action.type) {
-            case 'add_note':
-              return this.handleFold();
-    
-            case 'done_note':
-              return this.done_note(action);
-    
-            case 'delete_note':
-              return this.delete_note(action);
-    
-            default:
-              throw new Error();
-          }
-        }
+  dispatchAssistantAction(action) {
+    console.log('dispatchAssistantAction', action);
+    if (action) {
+      switch (action.type) {
+        case 'add_note':
+           this.handleFold();
+
+        case 'done_note':
+          return this.done_note(action);
+
+        case 'delete_note':
+          return this.delete_note(action);
+
+        default:
+          throw new Error();
       }
-    
-      
+    }
+  }
+
+
   render() {
     return (
       <div className="App">
-        <div className='poker-table--wrapper'> 
-          { 
-            (this.state.loading) ? <Spinner/> : 
-            (this.state.winnerFound) ? <WinScreen /> : 
-            this.renderGame()
+        <div className='poker-table--wrapper'>
+          {
+            (this.state.loading) ? <Spinner /> :
+              (this.state.winnerFound) ? <WinScreen /> :
+                this.renderGame()
           }
         </div>
       </div>
