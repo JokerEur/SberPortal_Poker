@@ -192,7 +192,7 @@ export class App extends React.Component {
   dispatchAssistantAction(action) {
     console.log('dispatchAssistantAction', action);
     if (action) {
-      switch (action.type) {
+      switch (action.data) {
         case 'add_note':
            this.handleFold();
 
