@@ -193,6 +193,23 @@ export class App extends React.Component {
 
   }
 
+  getStateForAssistant() {
+    console.log('getStateForAssistant: this.state:', this.state)
+    const state = {
+      item_selector: {
+        items: this.state.notes.map(
+          ({ id, title }, index) => ({
+            number: index + 1,
+            id,
+            title,
+          })
+        ),
+      },
+    };
+    console.log('getStateForAssistant: state:', state)
+    return state;
+  }
+
   dispatchAssistantAction(action) {
     console.log('dispatchAssistantAction', action);
     if (action) {
@@ -475,23 +492,7 @@ export class App extends React.Component {
       </div>
     )
   }
-  getStateForAssistant() {
-    console.log('getStateForAssistant: this.state:', this.state)
-    const state = {
-      item_selector: {
-        items: this.state.notes.map(
-          ({ id, title }, index) => ({
-            number: index + 1,
-            id,
-            title,
-          })
-        ),
-      },
-    };
-    console.log('getStateForAssistant: state:', state)
-    return state;
-  }
-
+  
   render() {
     return (
       <div className="App">
