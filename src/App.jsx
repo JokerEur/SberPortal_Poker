@@ -189,6 +189,25 @@ export class App extends React.Component {
 
   }
 
+  dispatchAssistantAction(action) {
+    console.log('dispatchAssistantAction', action);
+    if (action) {
+      switch (action.type) {
+        case 'add_note':
+           this.handleFold();
+
+        case 'done_note':
+          return this.done_note(action);
+
+        case 'delete_note':
+          return this.delete_note(action);
+
+        default:
+          throw new Error();
+      }
+    }
+  }
+
   handleBetInputChange = (val, min, max) => {
     if (val === '') val = min
     if (val > max) val = max
@@ -468,26 +487,6 @@ export class App extends React.Component {
     console.log('getStateForAssistant: state:', state)
     return state;
   }
-
-  dispatchAssistantAction(action) {
-    console.log('dispatchAssistantAction', action);
-    if (action) {
-      switch (action.type) {
-        case 'add_note':
-           this.handleFold();
-
-        case 'done_note':
-          return this.done_note(action);
-
-        case 'delete_note':
-          return this.delete_note(action);
-
-        default:
-          throw new Error();
-      }
-    }
-  }
-
 
   render() {
     return (
