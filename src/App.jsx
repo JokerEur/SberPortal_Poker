@@ -67,38 +67,6 @@ const initializeAssistant = (getState/*: any*/) => {
 
 
 export class App extends React.Component {
-  // state = {
-  //   loading: true,
-  //   winnerFound: null,
-  //   players: null,
-  //   numPlayersActive: null,
-  //   numPlayersFolded: null,
-  //   numPlayersAllIn: null,
-  //   activePlayerIndex: null,
-  //   dealerIndex: null,
-  //   blindIndex: null,
-  //   deck: null,
-  //   communityCards: [],
-  //   pot: null,
-  //   highBet: null,
-  //   betInputValue: null,
-  //   sidePots: [],
-  //   minBet: 20,
-  //   phase: 'loading',
-  //   playerHierarchy: [],
-  //   showDownMessages: [],
-  //   playActionMessages: [],
-  //   notes: [],
-  //   playerAnimationSwitchboard: {
-  //     0: { isAnimating: false, content: null },
-  //     1: { isAnimating: false, content: null },
-  //     2: { isAnimating: false, content: null },
-  //     3: { isAnimating: false, content: null },
-  //     4: { isAnimating: false, content: null },
-  //     5: { isAnimating: false, content: null }
-  //   }
-  // }
-
 
   cardAnimationDelay = 0;
 
@@ -505,15 +473,20 @@ export class App extends React.Component {
     console.log('dispatchAssistantAction', action);
     if (action) {
       switch (action.type) {
-        case 'add_note':
-          this.handleFold();
+        case 'add_note':          //handle carts
+          return this.handleFold();
 
         case 'done_note':
-          return this.done_note(action);
+          const { highBet, players, activePlayerIndex, betInputValue } = this.state
+          const min = determineMinBet(highBet, players[activePlayerIndex].chips, players[activePlayerIndex].bet)
+          const max = players[activePlayerIndex].chips + players[activePlayerIndex].bet
+          return this.handleBetInputSubmit(betInputValue, min, max);
 
-        case 'delete_note':
-          return this.delete_note(action);
+        case 'delete_note':       //Star next round
+          return this.handleNextRound();
 
+        case 'rise':
+          return this.handleBetInputChange(action.data);
         default:
           throw new Error();
       }
