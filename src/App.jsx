@@ -477,16 +477,19 @@ export class App extends React.Component {
           return this.handleFold();
 
         case 'done_note':
-          const { highBet, players, activePlayerIndex, betInputValue } = this.state
-          const min = determineMinBet(highBet, players[activePlayerIndex].chips, players[activePlayerIndex].bet)
-          const max = players[activePlayerIndex].chips + players[activePlayerIndex].bet
+          var { highBet, players, activePlayerIndex, betInputValue} = this.state
+          var min = determineMinBet(highBet, players[activePlayerIndex].chips, players[activePlayerIndex].bet)
+          var max = players[activePlayerIndex].chips + players[activePlayerIndex].bet
           return this.handleBetInputSubmit(betInputValue, min, max);
 
         case 'delete_note':       //Star next round
           return this.handleNextRound();
 
-        case 'rise':
-          return this.handleBetInputChange(action.data);
+        case 'flip_card':
+          var { highBet, players, activePlayerIndex, betInputValue} = this.state
+          var min = determineMinBet(highBet, players[activePlayerIndex].chips, players[activePlayerIndex].bet)
+          var max = players[activePlayerIndex].chips + players[activePlayerIndex].bet
+          return this.handleBetInputChange(action.data,min,max);
         default:
           throw new Error();
       }
