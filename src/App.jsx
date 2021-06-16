@@ -344,7 +344,7 @@ export class App extends React.Component {
         />
         <div className="showdown-player--besthand--container">
           <h5 className="showdown-player--besthand--heading">
-            Best Hand
+            Лучшая рука
           </h5>
           <div className='showdown-player--besthand--cards' style={{ alignItems: 'center' }}>
             {
@@ -408,18 +408,18 @@ export class App extends React.Component {
     return (
       <div className='showdown-container--wrapper'>
         <h5 className="showdown-container--title">
-          Round Complete!
+          Раунд завершён!
         </h5>
         <div className="showdown-container--messages">
           {renderShowdownMessages(this.state.showDownMessages)}
         </div>
         <h5 className="showdown-container--community-card-label">
-          Community Cards
+          Общии карты
         </h5>
         <div className='showdown-container--community-cards'>
           {this.renderCommunityCards(true)}
         </div>
-        <button className="showdown--nextRound--button" onClick={() => this.handleNextRound()}> Next Round </button>
+        <button className="showdown--nextRound--button" onClick={() => this.handleNextRound()}> Следующий Раунд </button>
         { this.renderBestHands()}
       </div>
     )

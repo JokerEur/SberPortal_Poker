@@ -7,7 +7,7 @@ const axios = require('axios')
 const generateTable = async () => {
 	const users = [{
 		id: uuid(),
-		name: 'Player 1',
+		name: 'Игрок 1',
 		avatarURL: '/assets/boy.svg',
 		cards: [],
 		showDownHand: {

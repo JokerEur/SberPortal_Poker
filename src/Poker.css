@@ -58,6 +58,8 @@ img {
 
 
 */
+h5{font-size: 19px;}
+h4{font-size: 19px;}
 
 /* Playing Card Styles */
 
@@ -68,10 +70,10 @@ img {
 	align-items: center;
 
 	background-color: white;
-	font-size: 1em;
+	font-size: 1.45em;
 
-	height: 50px;
-	width: 35px;
+	height: 55px;
+	width: 40px;
 	margin: 0 1px;
 	border: 1px solid gray;
 
@@ -333,7 +335,7 @@ img {
  	z-index: 99;
 
  	padding: 12px;
- 	margin-top: 12px;
+	 margin-top: 12px;
  }
 
 .player-info-box h5 {
@@ -436,15 +438,16 @@ img {
 	align-items: center;
 	justify-content: center;
 	color: white;
-	margin-top: 10px;
+	margin-top: 12px;
+	margin-right: 6px;
 	text-shadow: 2px 2px 18px rgba(0,0,0,0.95);
 }
 
 
 .player-info--stash--image,
 .player-info--bet--image {
-	height: 25px;
-	width: 25px;
+	height: 30px;
+	width: 30px;
 }
 
 .poker-table--wrapper {
@@ -577,7 +580,7 @@ img {
 @media (min-width: 1080px) {
 	.poker-table--container {
 		left: 50%;
-		top: 50%;
+		top: 47%;
 		transform: translate(-50%, -50%);
 		width: 1080px;
 		height: 590px;

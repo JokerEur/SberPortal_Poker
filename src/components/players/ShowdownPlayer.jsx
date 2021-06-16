@@ -28,7 +28,7 @@ const ShowdownPlayer = (props) => {
       </div>
       <div class="showdownPlayer--privateCards">
         <h5 class="showdownPlayer--cards--heading">
-          Private Cards
+          Личные карты
         </h5>
         <div class="showdownPlayer--cards">
           { renderCards(cards) }

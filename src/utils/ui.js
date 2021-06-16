@@ -72,7 +72,7 @@ const renderShowdownMessages = (showDownMessages) => {
 							{`${users.length} players `}
 						</span>
 						<span className="message--content">
-							{`split the pot with a `}
+							{`делит банк с `}
 						</span>
 						<span className="message--rank">
 							{`${rank}!`}
@@ -86,13 +86,13 @@ const renderShowdownMessages = (showDownMessages) => {
 										{`${user} `}
 									</span>
 									<span className="message--content">
-										{`takes `}
+										{`получает `}
 									</span>
 									<span className="message--earnings">
-										{`${prize} chips `}
+										{`${prize} фишек `}
 									</span>
 									<span className="message--content">
-										{`from the pot.`}
+										{`из банка.`}
 									</span>
 								</div>
 							)
@@ -107,13 +107,13 @@ const renderShowdownMessages = (showDownMessages) => {
 						{`${users[0]} `}
 					</span>
 					<span className="message--content">
-						{`wins `}
+						{`выйграл `}
 					</span>
 					<span className="message--earnings">
-						{`${prize} chips `}
+						{`${prize} фишек `}
 					</span>
 					<span className="message--content">
-						{`from the pot with a `}
+						{`из банка с `}
 					</span>
 					<span className="message--rank">
 						{`${rank}!`}
@@ -128,7 +128,7 @@ const renderActionMenu = (highBet, players, activePlayerIndex, phase, changeSlid
 	const min = determineMinBet(highBet, players[activePlayerIndex].chips, players[activePlayerIndex].bet)
 	const max = players[activePlayerIndex].chips + players[activePlayerIndex].bet
 	return(
-		(phase === 'betting1' || phase === 'betting2' || phase === 'betting3' || phase === 'betting4') ? (players[activePlayerIndex].robot) ? (<h4> {`Current Move: ${players[activePlayerIndex].name}`}</h4>) : (
+		(phase === 'betting1' || phase === 'betting2' || phase === 'betting3' || phase === 'betting4') ? (players[activePlayerIndex].robot) ? (<h4> {`Ходит: ${players[activePlayerIndex].name}`}</h4>) : (
 			<React.Fragment>
 			<Slider
 				rootStyle={sliderStyle}

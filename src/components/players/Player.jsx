@@ -96,7 +96,7 @@ const Player = (props) => {
             src={avatarURL} 
             alt="Player Avatar" 
           />
-          <h5 className="player-info--name" style={{'fontSize': (name.length < 14) ? 12 : 10}}>
+          <h5 className="player-info--name" style={{'fontSize': (name.length < 14) ? 15 : 13}}>
             {`${name}`}
           </h5>
           <div className="player-info--stash--container">
