@@ -2,6 +2,10 @@ import uuid from 'uuid/v1';
 import { handlePhaseShift, reconcilePot, anteUpBlinds, determineBlindIndices } from './bet.js';
 import { dealMissingCommunityCards, showDown, generateDeckOfCards, shuffle, dealPrivateCards } from './cards.js';
 
+
+// var path = './assets/bots/',
+//     imgs = ['bot.svg'];
+
 const axios = require('axios')
 // TODO Generate UUID to simulate User ID and really get a perf match on binding to players when determining winnings
 const generateTable = async () => {
@@ -34,7 +38,7 @@ const generateTable = async () => {
 			return ({
 				id: uuid(),
 				name: `${user.name.first.charAt(0).toUpperCase()}${user.name.first.slice(1)} ${user.name.last.charAt(0).toUpperCase()}${user.name.last.slice(1)}`,
-				avatarURL: user.picture.large,
+				avatarURL: './assets/bots/bot.svg',
 				cards: [],
 				chips: randomizedChips,
 				roundStartChips: randomizedChips,
