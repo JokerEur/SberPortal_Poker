@@ -107,7 +107,7 @@ const renderShowdownMessages = (showDownMessages) => {
 						{`${users[0]} `}
 					</span>
 					<span className="message--content">
-						{`выйграл `}
+						{`выиграл `}
 					</span>
 					<span className="message--earnings">
 						{`${prize} фишек `}
