@@ -491,12 +491,12 @@ export class App extends React.Component {
 
   dispatchAssistantAction(action) {
     console.log('dispatchAssistantAction', action);
-    const { highBet, players, activePlayerIndex, betInputValue } = this.state
-    const min = determineMinBet(highBet, players[activePlayerIndex].chips, players[activePlayerIndex].bet)
-    const max = players[activePlayerIndex].chips + players[activePlayerIndex].bet
     if (action) {
       switch (action.type) {
-        case 'add_note':          //handle carts
+        case 'add_note':       
+        var { highBet, players, activePlayerIndex, betInputValue } = this.state
+        var  min = determineMinBet(highBet, players[activePlayerIndex].chips, players[activePlayerIndex].bet)
+        var max = players[activePlayerIndex].chips + players[activePlayerIndex].bet   //handle carts
           return this.handleFold();
 
         case 'done_note':
@@ -506,6 +506,9 @@ export class App extends React.Component {
           return this.handleNextRound();
 
         case 'flip_card':
+          var { highBet, players, activePlayerIndex, betInputValue } = this.state
+          var  min = determineMinBet(highBet, players[activePlayerIndex].chips, players[activePlayerIndex].bet)
+          var max = players[activePlayerIndex].chips + players[activePlayerIndex].bet
           this.handleBetInputChange(action.data, min, max);
           this.changeSliderInput(action.data);
           this.handleBetInputSubmit(action.data, min, max);
