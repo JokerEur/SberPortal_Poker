@@ -303,7 +303,8 @@ h4{font-size: 19px;}
  	transition: background-color 0.4s ease-out, color 0.4s ease-out;
  }
  .action-button:hover,
- .action-button:focus {
+ .action-button:focus,
+ .action-button:focus-visible {
  	cursor: pointer;
  	background-color: #ffc935;
 	color: #f56132;
@@ -322,7 +323,8 @@ h4{font-size: 19px;}
  	transition: background-color 0.4s ease-out, color 0.4s ease-out;
  }
  .fold-button:hover,
- .fold-button:focus {
+ .fold-button:focus,
+ .fold-button:focus-visible{
  	background-color: rgb(255, 0, 0);
  	cursor: pointer;
  }
@@ -576,7 +578,8 @@ h4{font-size: 19px;}
 	line-height: 1;
 }
 .showdown--nextRound--button:hover,
-.showdown--nextRound--button:focus{
+.showdown--nextRound--button:focus,
+.showdown--nextRound--button:focus-visible{
 	cursor: pointer;
 	background-color: #c00000;
 	color: #000000;
