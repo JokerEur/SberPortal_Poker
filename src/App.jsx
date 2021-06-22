@@ -55,7 +55,7 @@ import {
 
 
 const initializeAssistant = (getState/*: any*/) => {
-  if (process.env.NODE_ENV === "development") {
+  if (process.env.NODE_ENV === "production") {
     return createSmartappDebugger({
       token: process.env.REACT_APP_TOKEN,
       initPhrase: `Запусти ${process.env.REACT_APP_SMARTAPP}`,

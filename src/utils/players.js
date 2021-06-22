@@ -37,7 +37,7 @@ const generateTable = async () => {
 			const randomizedChips = Math.floor(Math.random() * (20000 - 18000)) + 18000;
 			return ({
 				id: uuid(),
-				name: `${user.name.first.charAt(0).toUpperCase()}${user.name.first.slice(1)} ${user.name.last.charAt(0).toUpperCase()}${user.name.last.slice(1)}`,
+				name: `${user.name.first.charAt(0).toUpperCase()}${user.name.first.slice(1)}`,
 				avatarURL: './assets/bots/bot.svg',
 				cards: [],
 				chips: randomizedChips,
