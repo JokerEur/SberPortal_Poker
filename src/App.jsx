@@ -1,23 +1,3 @@
-// // TODO: Необходимо заменить используемые фотографии людей на другие изображения (без людей)+не очевидно, реальные это игроки или нет (модерации очевидно, пользователю - нет); 
-// // TODO: В интерфейсе смартапа не видно фокуса - не ясно, на каком элементе UI находится выделение;
-// // TODO: Ориентироваться в UI сложно, частично от отсутствия фокуса, частично из-за общего дизайна + не очевиден функционал кнопок в левом верхнем углу экрана;
-// ? TODO: Не очень удобное расположение кнопок "check" и "fold"; 
-// ? TODO: На СберСалюте поехала вёрстка (стол выезжает за границы экрана, фото и имена игроков перемешались друг с другом, ставки и карты перемешались друг с другом);
-
-
-// // TODO: Установить ставку возможно только командой "Проверить", т.е. по голосовому запросу "подними до ..." или при ручном выборе ставки на планке в верхней части UI ставка не выставляется в поле Bet;
-// ? TODO : На сберпортале не работает сроллер в планке величины ставки в верхней части UI;
-// ? TODO : Саджесты появляются в интерфейсе только после запроса в смартап, сразу после запуска приложения они отсутствуют;
-// // * TODO : Управление не очевидно в том числе после ознакомления с правилами - желательно упростить;
-// // * TODO : Необходимо расширить интенты на поднятие или установку ставки (например: если сказать "ставка 200" ассистент ответит "Я не понимаю") +Если сказать "Подними до 200" как рекомендует саджест, ассистент ответит "Дело сделано", но ставка не повысится;
-// //  TODO : На голосовую команду "Правила" ассистент начинает озвучивать что нужно для игры в покер (зачем это в данном смартапе не совсем понятно) +нужно поправить разметку во фразах ассистента например: 52 читается ассистентом как пятьдесят два карточная колода;
-// // TODO : Не совсем понятны реакции ассистента на голосовые команды управления ( если сказать "Уравнять ставку", ассистент может сказать "опять работа";
-
-
-
-
-
-
 import "@babel/polyfill";
 
 import 'core-js/es6/map';
@@ -75,7 +55,7 @@ import {
 
 
 const initializeAssistant = (getState/*: any*/) => {
-  if (process.env.NODE_ENV === "production") {
+  if (process.env.NODE_ENV === "development") {
     return createSmartappDebugger({
       token: process.env.REACT_APP_TOKEN,
       initPhrase: `Запусти ${process.env.REACT_APP_SMARTAPP}`,
@@ -493,23 +473,23 @@ export class App extends React.Component {
     console.log('dispatchAssistantAction', action);
     if (action) {
       switch (action.type) {
-        case 'add_note':       
-        var { highBet, players, activePlayerIndex, betInputValue } = this.state
-        var  min = determineMinBet(highBet, players[activePlayerIndex].chips, players[activePlayerIndex].bet)
-        var max = players[activePlayerIndex].chips + players[activePlayerIndex].bet   //handle carts
+        case 'add_note':          //handle carts
           return this.handleFold();
 
         case 'done_note':
+          var { highBet, players, activePlayerIndex, betInputValue} = this.state
+          var min = determineMinBet(highBet, players[activePlayerIndex].chips, players[activePlayerIndex].bet)
+          var max = players[activePlayerIndex].chips + players[activePlayerIndex].bet
           return this.handleBetInputSubmit(betInputValue, min, max);
 
         case 'delete_note':       //Star next round
           return this.handleNextRound();
 
         case 'flip_card':
-          var { highBet, players, activePlayerIndex, betInputValue } = this.state
-          var  min = determineMinBet(highBet, players[activePlayerIndex].chips, players[activePlayerIndex].bet)
+          var { highBet, players, activePlayerIndex, betInputValue} = this.state
+          var min = determineMinBet(highBet, players[activePlayerIndex].chips, players[activePlayerIndex].bet)
           var max = players[activePlayerIndex].chips + players[activePlayerIndex].bet
-          this.handleBetInputChange(action.data, min, max);
+          this.handleBetInputChange(action.data,min,max);
           this.changeSliderInput(action.data);
           this.handleBetInputSubmit(action.data, min, max);
           break;
