@@ -55,7 +55,7 @@ import {
 
 
 const initializeAssistant = (getState/*: any*/) => {
-  if (process.env.NODE_ENV === "production") {
+  if (process.env.NODE_ENV === "development") {
     return createSmartappDebugger({
       token: process.env.REACT_APP_TOKEN,
       initPhrase: `Запусти ${process.env.REACT_APP_SMARTAPP}`,
@@ -188,7 +188,6 @@ export class App extends React.Component {
     });
 
   }
-
   handleBetInputChange = (val, min, max) => {
     if (val === '') val = min
     if (val > max) val = max
@@ -489,6 +488,12 @@ export class App extends React.Component {
           var { highBet, players, activePlayerIndex, betInputValue} = this.state
           var min = determineMinBet(highBet, players[activePlayerIndex].chips, players[activePlayerIndex].bet)
           var max = players[activePlayerIndex].chips + players[activePlayerIndex].bet
+          if(action.data > players[activePlayerIndex].chips ){
+            return;
+          }
+          if(action.data < this.minBet){
+            return
+          }
           this.handleBetInputChange(action.data,min,max);
           this.changeSliderInput(action.data);
           this.handleBetInputSubmit(action.data, min, max);
