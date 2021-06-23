@@ -58,7 +58,7 @@ img {
 
 
 */
-h5{font-size: 19px;}
+h5{font-size: 17px;}
 h4{font-size: 19px;}
 
 /* Playing Card Styles */
@@ -445,7 +445,22 @@ h4{font-size: 19px;}
 	margin-top: 12px;
 	margin-right: 6px;
 	text-shadow: 2px 2px 18px rgba(0,0,0,0.95);
+	
 }
+
+
+.player-info--bet--container {
+	position: absolute;
+	top: -20px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 100%;
+	color: whitesmoke;
+	border-radius: 100px;
+	background-color: rgba(0,0,0,10);
+	border: 1px solid white;
+}
+
 
 
 .player-info--stash--image,
@@ -480,6 +495,7 @@ h4{font-size: 19px;}
 	min-height: 100%;
 	width: 100%;
 	z-index: 100;
+	overflow: hidden;
 }
 
 .showdown-container--title {
