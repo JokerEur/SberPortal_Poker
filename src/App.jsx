@@ -4,7 +4,7 @@ import 'core-js/es6/map';
 import 'core-js/es6/set';
 import 'raf/polyfill';
 
-import React, { Component } from 'react';
+import React, { Component , useEffect, useRef,useState} from 'react';
 import './App.css';
 import './Poker.css';
 
@@ -53,9 +53,8 @@ import {
   createAssistant,
 } from "@sberdevices/assistant-client";
 
-
 const initializeAssistant = (getState/*: any*/) => {
-  if (process.env.NODE_ENV === "production") {
+  if (process.env.NODE_ENV === "development") {
     return createSmartappDebugger({
       token: process.env.REACT_APP_TOKEN,
       initPhrase: `Запусти ${process.env.REACT_APP_SMARTAPP}`,
@@ -79,8 +78,9 @@ export class App extends React.Component {
     const dealerIndex = Math.floor(Math.random() * Math.floor(players.length));
     const blindIndicies = determineBlindIndices(dealerIndex, players.length);
     const playersBoughtIn = anteUpBlinds(players, blindIndicies, this.state.minBet);
-
+    
     const imageLoaderRequest = new XMLHttpRequest();
+
 
     imageLoaderRequest.addEventListener("load", e => {
       console.log(`${e.type}`);
@@ -121,6 +121,7 @@ export class App extends React.Component {
     imageLoaderRequest.send();
 
     this.setState(prevState => ({
+
       // loading: false,
       players: playersBoughtIn,
       numPlayersActive: players.length,
@@ -144,6 +145,7 @@ export class App extends React.Component {
   constructor(props) {
     super(props);
     console.log('constructor');
+    
 
     this.state = {
       loading: true,
@@ -488,12 +490,13 @@ export class App extends React.Component {
           var { highBet, players, activePlayerIndex, betInputValue} = this.state
           var min = determineMinBet(highBet, players[activePlayerIndex].chips, players[activePlayerIndex].bet)
           var max = players[activePlayerIndex].chips + players[activePlayerIndex].bet
-          if(action.data > players[activePlayerIndex].chips ){
+          if(action.data > players[activePlayerIndex].chips){
+            // console.log("test",this.assistant.sendData({ action: { action_id: 'gameWin' }}));
+            // this.assistant.sendData({ action: { action_id: 'gameWin' }});
             return;
           }
-          if(action.data < this.minBet){
-            return
-          }
+          if(action.data < this.minBet)
+            return;
           this.handleBetInputChange(action.data,min,max);
           this.changeSliderInput(action.data);
           this.handleBetInputSubmit(action.data, min, max);
