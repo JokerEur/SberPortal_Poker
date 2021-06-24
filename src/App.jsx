@@ -472,7 +472,7 @@ export class App extends React.Component {
 
 
   sendFine = () => {
-    this.assistant.sendData({action: {action_id: "Fine"}});
+    this.assistant.sendData({action:{type: `Fine`}});
   }
   
   sendMoreOrLess = () =>{
@@ -501,12 +501,12 @@ export class App extends React.Component {
           var min = determineMinBet(highBet, players[activePlayerIndex].chips, players[activePlayerIndex].bet)
           var max = players[activePlayerIndex].chips + players[activePlayerIndex].bet
           if (action.data > players[activePlayerIndex].chips) {
-            return this.sendMoreOrLess();
+            return;
           }
           if (action.data < this.minBet){
             return;
           }
-          this.sendFine();
+
           this.handleBetInputChange(action.data, min, max);
           this.changeSliderInput(action.data);
           this.handleBetInputSubmit(action.data, min, max);
