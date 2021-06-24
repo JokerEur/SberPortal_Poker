@@ -4,7 +4,7 @@ import 'core-js/es6/map';
 import 'core-js/es6/set';
 import 'raf/polyfill';
 
-import React, { Component , useEffect, useRef,useState} from 'react';
+import React, { Component, useEffect, useRef, useState } from 'react';
 import './App.css';
 import './Poker.css';
 
@@ -78,7 +78,7 @@ export class App extends React.Component {
     const dealerIndex = Math.floor(Math.random() * Math.floor(players.length));
     const blindIndicies = determineBlindIndices(dealerIndex, players.length);
     const playersBoughtIn = anteUpBlinds(players, blindIndicies, this.state.minBet);
-    
+
     const imageLoaderRequest = new XMLHttpRequest();
 
 
@@ -145,7 +145,7 @@ export class App extends React.Component {
   constructor(props) {
     super(props);
     console.log('constructor');
-    
+
 
     this.state = {
       loading: true,
@@ -470,6 +470,16 @@ export class App extends React.Component {
     return state;
   }
 
+
+  sendFine = () => {
+    this.assistant.sendData({action: {action_id: "Fine"}});
+  }
+  
+  sendMoreOrLess = () =>{
+    this.assistant.sendData({action: {action_id: "MoreOrLess"}}); 
+  }
+
+
   dispatchAssistantAction(action) {
     console.log('dispatchAssistantAction', action);
     if (action) {
@@ -478,7 +488,7 @@ export class App extends React.Component {
           return this.handleFold();
 
         case 'done_note':
-          var { highBet, players, activePlayerIndex, betInputValue} = this.state
+          var { highBet, players, activePlayerIndex, betInputValue } = this.state
           var min = determineMinBet(highBet, players[activePlayerIndex].chips, players[activePlayerIndex].bet)
           var max = players[activePlayerIndex].chips + players[activePlayerIndex].bet
           return this.handleBetInputSubmit(betInputValue, min, max);
@@ -487,17 +497,17 @@ export class App extends React.Component {
           return this.handleNextRound();
 
         case 'flip_card':
-          var { highBet, players, activePlayerIndex, betInputValue} = this.state
+          var { highBet, players, activePlayerIndex, betInputValue,minBet } = this.state
           var min = determineMinBet(highBet, players[activePlayerIndex].chips, players[activePlayerIndex].bet)
           var max = players[activePlayerIndex].chips + players[activePlayerIndex].bet
-          if(action.data > players[activePlayerIndex].chips){
-            // console.log("test",this.assistant.sendData({ action: { action_id: 'gameWin' }}));
-            // this.assistant.sendData({ action: { action_id: 'gameWin' }});
+          if (action.data > players[activePlayerIndex].chips) {
+            return this.sendMoreOrLess();
+          }
+          if (action.data < this.minBet){
             return;
           }
-          if(action.data < this.minBet)
-            return;
-          this.handleBetInputChange(action.data,min,max);
+          this.sendFine();
+          this.handleBetInputChange(action.data, min, max);
           this.changeSliderInput(action.data);
           this.handleBetInputSubmit(action.data, min, max);
           break;
