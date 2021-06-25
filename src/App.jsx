@@ -401,6 +401,9 @@ export class App extends React.Component {
         <button className='fold-button' onClick={() => this.handleFold()}>
           Fold
         </button>
+        <div className = "min-bet">
+          минимальная ставка: {min}
+        </div>
       </React.Fragment>
     )
   }
