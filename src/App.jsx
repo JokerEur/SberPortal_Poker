@@ -395,15 +395,15 @@ export class App extends React.Component {
     const max = players[activePlayerIndex].chips + players[activePlayerIndex].bet
     return ((players[activePlayerIndex].robot) || (phase === 'showdown')) ? null : (
       <React.Fragment>
-        <button className='action-button' onClick={() => this.handleBetInputSubmit(betInputValue, min, max)}>
+        <div className = "min-bet">
+          минимальная ставка: {min}
+        </div>
+        {/* <button className='action-button' onClick={() => this.handleBetInputSubmit(betInputValue, min, max)}>
           {renderActionButtonText(highBet, betInputValue, players[activePlayerIndex])}
         </button>
         <button className='fold-button' onClick={() => this.handleFold()}>
           Fold
-        </button>
-        <div className = "min-bet">
-          минимальная ставка: {min}
-        </div>
+        </button> */}
       </React.Fragment>
     )
   }
